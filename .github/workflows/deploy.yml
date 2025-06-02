@@ -1,1 +1,19 @@
+name: Deploy Calculator
 
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clonar repositório
+        uses: actions/checkout@v3
+
+      - name: Verificar arquivos
+        run: ls -la
+
+      - name: Mensagem de teste
+        run: echo "CI configurado com sucesso!"
