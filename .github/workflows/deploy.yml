@@ -1,4 +1,4 @@
-name: Deploy Calculator
+name: CI/CD com Netlify
 
 on:
   push:
@@ -6,14 +6,18 @@ on:
       - main
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Clonar repositório
+      - name: Checkout do código
         uses: actions/checkout@v3
 
-      - name: Verificar arquivos
-        run: ls -la
-
-      - name: Mensagem de teste
-        run: echo "CI configurado com sucesso!"
+      - name: Deploy no Netlify
+        uses: nwtgck/actions-netlify@v1.2
+        with:
+          publish-dir: "./"
+          production-branch: main
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          netlify-auth-token: ${{ secrets.NETLIFY_AUTH_TOKEN }}
+          netlify-site-id: ${{ secrets.NETLIFY_SITE_ID }}
